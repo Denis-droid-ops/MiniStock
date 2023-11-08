@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>All elements</title>
+</h:head>
+<h:body>
+   <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Mini stock</p>
+    <h:form id="form">
+    <div class="card" align="center">
+        <p:growl id="messages" showDetail="true"/>
+           <p:toolbar style="width:85%;alignment: center">
+                <p:toolbarGroup>
+                    <p:commandButton value="New" icon="pi pi-file" styleClass="mr-2"  action="#{elementController.newElementForm()}"/>
+
+                </p:toolbarGroup>
+
+            </p:toolbar>
+    </div>
+
+        <p:contextMenu for="dt1" widgetVar="cMenu">
+            <p:menuitem style="background-color: lightcoral" value="Delete" update="dt1" icon="ui-icon-close"
+                        action="#{elementController.delete()}" />
+        </p:contextMenu>
+
+        <div class="card" align="center">
+            <p:dataTable id="dt1" var="elem" value="#{elementController.elements}" showGridlines="true"
+                         rowKey="#{elem.id}" selection="#{elementController.selectedElement}" selectionMode="single"  style="width:85%;" size="small" >
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{elem.id}" />
+                </p:column>
+
+                <p:column headerText="Name" sortBy="#{elem.name}">
+                    <h:outputText value="#{elem.name}" />
+                </p:column>
+
+                <p:column headerText="Price">
+                    <h:outputText value="#{elem.price}" />
+                </p:column>
+
+                <p:column headerText="Count">
+                    <h:outputText value="#{elem.count}" />
+                </p:column>
+
+                <p:column exportable="false">
+                    <p:commandButton value="create moving" />
+                </p:column>
+
+                <p:column exportable="false">
+                    <p:commandButton value="moving history" />
+                </p:column>
+
+            </p:dataTable>
+        </div>
+
+    </h:form>
+</h:body>
+</html>

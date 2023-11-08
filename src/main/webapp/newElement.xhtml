@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+  <title>Add element</title>
+</h:head>
+<h:body>
+  <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Add new element</p>
+
+  <div align="center">
+  <p:card style="width: 70em;">
+    <f:facet name="title">
+      Enter name and price for new element:
+    </f:facet>
+    <h:form>
+    <div class="p-formgroup-inline">
+      <div class="p-field">
+        <p:outputLabel for="name" styleClass="ui-sr-only" value="Name" />
+        <p:inputText id="name" placeholder="Enter name" value="#{elementController.newElement.name}"/>
+      </div>
+      <br/>
+      <div class="p-field">
+        <p:outputLabel for="price" styleClass="ui-sr-only" value="Price"/>
+        <p:inputText id="price" placeholder="Enter price" value="#{elementController.newElement.price}" />
+      </div>
+      <div class="p-field">
+        <p:inputText id="count" placeholder="Enter price" value="#{elementController.newElement.count}" type="hidden"/>
+      </div>
+
+    </div>
+    </h:form>
+
+
+    <f:facet name="footer">
+      <p:commandButton icon="pi pi-check" value="Save" action="#{elementController.create()}"/>
+      <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"
+                       action="#{elementController.goMainPage()}"/>
+    </f:facet>
+  </p:card>
+  </div>
+</h:body>
+</html>

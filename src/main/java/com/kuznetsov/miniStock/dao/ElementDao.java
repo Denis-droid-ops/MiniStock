@@ -17,6 +17,7 @@ public class ElementDao implements Dao<Element,Integer> {
     private static final String SAVE_SQL = "INSERT INTO Element(name,price,count) VALUES(?,?,?)";
     private static final String FIND_ALL_SQL = "SELECT id,name,price,count FROM Element";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
+    private static final String FIND_BY_NAME_SQL = FIND_ALL_SQL+" WHERE name = ?";
     private static final String DELETE_SQL = "DELETE FROM Element WHERE id = ?";
 
 
@@ -46,6 +47,23 @@ public class ElementDao implements Dao<Element,Integer> {
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(FIND_BY_ID_SQL)) {
             ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            Element element = null;
+            if(rs.next()){
+                element = buildElement(rs);
+            }
+            return Optional.ofNullable(element);
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
+
+
+    public Optional<Element> findByName(String name) {
+        System.out.println("Begin finding element by name...");
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(FIND_BY_NAME_SQL)) {
+            ps.setString(1,name);
             ResultSet rs = ps.executeQuery();
             Element element = null;
             if(rs.next()){

@@ -19,10 +19,14 @@
       Enter name and price for new element:
     </f:facet>
     <h:form>
+      <p:messages/>
     <div class="p-formgroup-inline">
       <div class="p-field">
         <p:outputLabel for="name" styleClass="ui-sr-only" value="Name" />
-        <p:inputText id="name" placeholder="Enter name" value="#{elementController.newElement.name}"/>
+        <p:inputText id="name" placeholder="Enter name" value="#{elementController.newElement.name}">
+        <f:validator validatorId="elementValidator" />
+        </p:inputText>
+
       </div>
       <br/>
       <div class="p-field">
@@ -32,16 +36,13 @@
       <div class="p-field">
         <p:inputText id="count" placeholder="Enter price" value="#{elementController.newElement.count}" type="hidden"/>
       </div>
-
-    </div>
-    </h:form>
-
-
-    <f:facet name="footer">
-      <p:commandButton icon="pi pi-check" value="Save" action="#{elementController.create()}"/>
+      <br/>
+      <p:commandButton icon="pi pi-check" value="Save" action="#{elementController.create()}" ajax="false" validateClient="true"/>
       <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"
-                       action="#{elementController.goMainPage()}"/>
-    </f:facet>
+                         action="#{elementController.goMainPage()}" process="@this"/>
+    </div>
+
+    </h:form>
   </p:card>
   </div>
 </h:body>

@@ -7,7 +7,7 @@ CREATE TABLE Element(
 
 CREATE TABLE Moving(
     id SERIAL PRIMARY KEY,
-    date TIMESTAMP NOT NULL,
+    date_time TIMESTAMP NOT NULL,
     movable_count INTEGER NOT NULL CONSTRAINT positive_price CHECK (movable_count > -1000 AND movable_count<1000),
     remain_after INTEGER NOT NULL,
     element_id INTEGER NOT NULL,

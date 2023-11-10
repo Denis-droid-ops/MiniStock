@@ -34,7 +34,7 @@
         <p:inputText id="price" placeholder="Enter price" value="#{elementController.newElement.price}" />
       </div>
       <div class="p-field">
-        <p:inputText id="count" placeholder="Enter price" value="#{elementController.newElement.count}" type="hidden"/>
+        <p:inputText id="count" value="#{elementController.newElement.count}" type="hidden"/>
       </div>
       <br/>
       <p:commandButton icon="pi pi-check" value="Save" action="#{elementController.create()}" ajax="false" validateClient="true"/>

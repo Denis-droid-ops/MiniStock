@@ -5,10 +5,10 @@ import com.kuznetsov.miniStock.model.Element;
 import com.kuznetsov.miniStock.model.Moving;
 import com.kuznetsov.miniStock.util.ConnectionManager;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 
 import java.sql.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,8 @@ import java.util.Optional;
 @ApplicationScoped
 public class MovingDao implements Dao<Moving,Integer> {
 
-    private static final String SAVE_SQL = "INSERT INTO Moving(date,movable_count,remain_after,element_id) VALUES(?,?,?,?)";
-    private static final String FIND_ALL_SQL = "SELECT m.id,m.date,m.movable_count,m.remain_after,m.element_id,e.name,e.price,e.count " +
+    private static final String SAVE_SQL = "INSERT INTO Moving(date_time,movable_count,remain_after,element_id) VALUES(?,?,?,?)";
+    private static final String FIND_ALL_SQL = "SELECT m.id,m.date_time,m.movable_count,m.remain_after,m.element_id,e.name,e.price,e.count " +
             "FROM Moving m LEFT JOIN Element e ON m.element_id = e.id";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
     private static final String DELETE_SQL = "DELETE FROM Moving WHERE id = ?";
@@ -28,7 +28,7 @@ public class MovingDao implements Dao<Moving,Integer> {
         System.out.println("Begin saving moving...");
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setObject(1,object.getDate());
+            ps.setObject(1,object.getDateTime());
             ps.setInt(2,object.getMovableCount());
             ps.setInt(3,object.getRemainAfter());
             ps.setInt(4,object.getElement().getId());
@@ -100,7 +100,7 @@ public class MovingDao implements Dao<Moving,Integer> {
                                       ,resultSet.getObject("price",Integer.class)
                                       ,resultSet.getObject("count",Integer.class));
         return new Moving(resultSet.getObject("id", Integer.class)
-                         ,resultSet.getObject("date", LocalDate.class)
+                         ,resultSet.getObject("date_time", LocalDateTime.class)
                          ,resultSet.getObject("movable_count",Integer.class)
                          ,resultSet.getObject("remain_after",Integer.class)
                          ,element);

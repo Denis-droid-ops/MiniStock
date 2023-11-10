@@ -19,6 +19,7 @@ public class ElementDao implements Dao<Element,Integer> {
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
     private static final String FIND_BY_NAME_SQL = FIND_ALL_SQL+" WHERE name = ?";
     private static final String DELETE_SQL = "DELETE FROM Element WHERE id = ?";
+    private static final String UPDATE_COUNT_SQL = "UPDATE Element SET count = ? WHERE id = ?";
 
 
     @Override
@@ -78,6 +79,19 @@ public class ElementDao implements Dao<Element,Integer> {
     @Override
     public void update(Element object) {
        //Code for update
+    }
+
+
+    public void updateCount(Integer elementId,Integer count) {
+        System.out.println("Begin updating element count...");
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(UPDATE_COUNT_SQL)){
+            ps.setInt(1,count);
+            ps.setInt(2,elementId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
     }
 
     @Override

@@ -3,14 +3,14 @@ package com.kuznetsov.miniStock.controller;
 import com.kuznetsov.miniStock.dao.ElementDao;
 import com.kuznetsov.miniStock.model.Element;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class ElementController implements Serializable {
 
     private static final Integer INIT_COUNT = 0;
@@ -83,5 +83,11 @@ public class ElementController implements Serializable {
     public String goMainPage(){
         return "elements?faces-redirect=true";
     }
+
+    public String newMovingForm(Element element){
+        return "newMoving?faces-redirect=true&id="+element.getId();
+    }
+
+
 
 }

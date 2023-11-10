@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Add moving</title>
+</h:head>
+<f:metadata>
+    <f:viewParam name="id" value="#{movingController.id}" />
+    <f:viewAction action="#{movingController.setIntoServer()}" />
+</f:metadata>
+<h:body>
+    <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Add new moving for element</p>
+
+    <div align="center">
+        <p:card style="width: 70em;">
+            <f:facet name="title">
+                Enter movable count:if movable is income, enter positive integer number,
+                if movable is expenditure, enter negative integer number
+            </f:facet>
+            <h:form>
+                <p:messages/>
+                <div class="p-formgroup-inline">
+                    <div class="p-field">
+                        <p:outputLabel for="movableCount" styleClass="ui-sr-only" value="Movable count" />
+                        <p:inputText id="movableCount" placeholder="Enter movable count" value="#{movingController.newMoving.movableCount}"/>
+                    </div>
+                    <br/>
+
+                    <p:commandButton icon="pi pi-check" value="Save" action="#{movingController.create()}" ajax="false" validateClient="true"/>
+                    <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"
+                                     action="#{movingController.goMainPage()}" process="@this"/>
+                </div>
+
+            </h:form>
+        </p:card>
+    </div>
+</h:body>
+</html>

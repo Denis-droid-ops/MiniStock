@@ -34,6 +34,9 @@ public class MovingController implements Serializable {
     @PostConstruct
     public void init(){
         movings = movingDao.findAll();
+        if(id!=null){
+            movings = movingDao.findAllByElementId(Integer.valueOf(id));
+        }
     }
 
     public void setIntoServer() {
@@ -117,10 +120,6 @@ public class MovingController implements Serializable {
         return goMainPage();
     }
 
-    public String delete(){
-        movingDao.delete(selectedMoving.getId());
-        return goMainPage();
-    }
 
     public String goMainPage(){
         return "elements?faces-redirect=true";

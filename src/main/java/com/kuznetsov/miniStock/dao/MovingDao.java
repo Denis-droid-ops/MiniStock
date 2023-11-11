@@ -20,6 +20,7 @@ public class MovingDao implements Dao<Moving,Integer> {
     private static final String FIND_ALL_SQL = "SELECT m.id,m.date_time,m.movable_count,m.remain_after,m.element_id,e.name,e.price,e.count " +
             "FROM Moving m LEFT JOIN Element e ON m.element_id = e.id";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
+    private static final String FIND_ALL_BY_ELEMENT_ID_SQL = FIND_ALL_SQL+" WHERE element_id = ?";
     private static final String DELETE_SQL = "DELETE FROM Moving WHERE id = ?";
 
 
@@ -68,14 +69,8 @@ public class MovingDao implements Dao<Moving,Integer> {
 
     @Override
     public boolean delete(Integer id) {
-        System.out.println("Begin deleting moving by id...");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(DELETE_SQL)) {
-            ps.setInt(1,id);
-            return ps.executeUpdate()>0;
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
+       //Code for delete
+        return false;
     }
 
     @Override
@@ -83,6 +78,22 @@ public class MovingDao implements Dao<Moving,Integer> {
         System.out.println("Begin finding all movings...");
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(FIND_ALL_SQL)) {
+            ResultSet rs = ps.executeQuery();
+            List<Moving> movings = new ArrayList<>();
+            while(rs.next()){
+                movings.add(buildMoving(rs));
+            }
+            return movings;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
+
+    public List<Moving> findAllByElementId(Integer elementId) {
+        System.out.println("Begin finding all movings by element id ...");
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(FIND_ALL_BY_ELEMENT_ID_SQL)) {
+            ps.setInt(1,elementId);
             ResultSet rs = ps.executeQuery();
             List<Moving> movings = new ArrayList<>();
             while(rs.next()){

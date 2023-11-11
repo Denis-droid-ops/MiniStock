@@ -8,10 +8,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>All movings</title>
+    <title>Moving history</title>
 </h:head>
+<f:metadata>
+    <f:viewParam name="id" value="#{movingController.id}" />
+    <f:viewAction action="#{movingController.init()}" />
+</f:metadata>
 <h:body>
-    <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Element movings</p>
+    <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Element moving history</p>
     <h:form id="form">
         <div class="card" align="center">
 
@@ -22,6 +26,7 @@
 
             </p:toolbar>
         </div>
+
 
         <div class="card" align="center">
             <p:dataTable id="dt1" var="mov" value="#{movingController.movings}" showGridlines="true"
@@ -41,14 +46,6 @@
 
                 <p:column headerText="Remain after">
                     <h:outputText value="#{mov.remainAfter}" />
-                </p:column>
-
-                <p:column headerText="Element name">
-                    <h:outputText value="#{mov.element.name}" />
-                </p:column>
-
-                <p:column headerText="Element count">
-                    <h:outputText value="#{mov.element.count}" />
                 </p:column>
 
             </p:dataTable>

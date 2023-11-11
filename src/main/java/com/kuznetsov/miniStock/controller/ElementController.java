@@ -88,6 +88,10 @@ public class ElementController implements Serializable {
         return "newMoving?faces-redirect=true&id="+element.getId();
     }
 
+    public String allMovingsPage(){
+        return "movings?faces-redirect=true";
+    }
+
 
 
 }

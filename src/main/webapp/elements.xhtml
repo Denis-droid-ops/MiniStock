@@ -14,11 +14,11 @@
    <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Mini stock</p>
     <h:form id="form">
     <div class="card" align="center">
-        <p:growl id="messages" showDetail="true"/>
+
            <p:toolbar style="width:85%;alignment: center">
                 <p:toolbarGroup>
                     <p:commandButton value="New" icon="pi pi-file" styleClass="mr-2"  action="#{elementController.newElementForm()}"/>
-
+                    <p:commandButton value="View all movings" style="margin-left: 5px" action="#{elementController.allMovingsPage()}"/>
                 </p:toolbarGroup>
 
             </p:toolbar>

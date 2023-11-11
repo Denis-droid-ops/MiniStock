@@ -4,6 +4,7 @@ import com.kuznetsov.miniStock.dao.ElementDao;
 import com.kuznetsov.miniStock.dao.MovingDao;
 import com.kuznetsov.miniStock.model.Element;
 import com.kuznetsov.miniStock.model.Moving;
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -30,6 +31,10 @@ public class MovingController implements Serializable {
     @Inject
     private ElementDao elementDao;
 
+    @PostConstruct
+    public void init(){
+        movings = movingDao.findAll();
+    }
 
     public void setIntoServer() {
         //default values, which set on server side, movable count set on client side

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>All movings</title>
+</h:head>
+<h:body>
+    <p align="center" style="font-size: 30px;font-family:'Arial',sans-serif">Element movings</p>
+    <h:form id="form">
+        <div class="card" align="center">
+
+            <p:toolbar style="width:85%;alignment: center">
+                <p:toolbarGroup>
+                    <p:commandButton value="Go to main page" action="#{movingController.goMainPage()}"/>
+                </p:toolbarGroup>
+
+            </p:toolbar>
+        </div>
+        <p:contextMenu for="dt1" widgetVar="cMenu">
+            <p:menuitem style="background-color: lightcoral" value="Delete" update="dt1" icon="ui-icon-close"
+                        action="#{movingController.delete()}" />
+        </p:contextMenu>
+
+        <div class="card" align="center">
+            <p:dataTable id="dt1" var="mov" value="#{movingController.movings}" showGridlines="true"
+                         rowKey="#{mov.id}" selection="#{movingController.selectedMoving}" selectionMode="single"  style="width:85%;" size="small" >
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{mov.id}" />
+                </p:column>
+
+                <p:column headerText="DateTime" sortBy="#{mov.dateTime}">
+                    <h:outputText value="#{mov.dateTime}" />
+                </p:column>
+
+                <p:column headerText="Movable count">
+                    <h:outputText value="#{mov.movableCount}" />
+                </p:column>
+
+                <p:column headerText="Remain after">
+                    <h:outputText value="#{mov.remainAfter}" />
+                </p:column>
+
+                <p:column headerText="Element name">
+                    <h:outputText value="#{mov.element.name}" />
+                </p:column>
+
+                <p:column headerText="Element count">
+                    <h:outputText value="#{mov.element.count}" />
+                </p:column>
+
+            </p:dataTable>
+        </div>
+
+    </h:form>
+</h:body>
+</html>

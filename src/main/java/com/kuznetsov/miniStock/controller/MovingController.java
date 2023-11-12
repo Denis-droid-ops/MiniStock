@@ -10,7 +10,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -120,12 +119,9 @@ public class MovingController implements Serializable {
         return goMainPage();
     }
 
-
     public String goMainPage(){
         return "elements?faces-redirect=true";
     }
-
-
 
 
 }

@@ -1,11 +1,19 @@
 package com.kuznetsov.miniStock.model;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Moving {
     private Integer id;
     private LocalDateTime dateTime;
+    @Min(value = -1000, message = "Movable count should be more than -1000")
+    @Max(value = 1000,message = "Movable count should be less than 1000")
+    @NotNull(message = "Movable count should not be null")
     private Integer movableCount;
     private Integer remainAfter;
     private Element element;

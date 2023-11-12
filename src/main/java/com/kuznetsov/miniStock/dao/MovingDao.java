@@ -21,7 +21,7 @@ public class MovingDao implements Dao<Moving,Integer> {
             "FROM Moving m LEFT JOIN Element e ON m.element_id = e.id";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
     private static final String FIND_ALL_BY_ELEMENT_ID_SQL = FIND_ALL_SQL+" WHERE element_id = ?";
-    private static final String DELETE_SQL = "DELETE FROM Moving WHERE id = ?";
+
 
 
     @Override

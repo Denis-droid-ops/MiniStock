@@ -1,7 +1,6 @@
 package com.kuznetsov.miniStock.util;
 
 import com.kuznetsov.miniStock.dao.ElementDao;
-import com.kuznetsov.miniStock.model.Element;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;

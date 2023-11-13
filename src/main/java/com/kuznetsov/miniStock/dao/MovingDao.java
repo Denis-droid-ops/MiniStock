@@ -21,29 +21,42 @@ public class MovingDao implements Dao<Moving,Integer> {
             "FROM Moving m LEFT JOIN Element e ON m.element_id = e.id";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE id = ?";
     private static final String FIND_ALL_BY_ELEMENT_ID_SQL = FIND_ALL_SQL+" WHERE element_id = ?";
-
+    private static final String UPDATE_ELEMENT_COUNT_SQL = "UPDATE Element SET count = ? WHERE id = ?";
 
 
     @Override
     public Moving save(Moving object) {
-        System.out.println("Begin saving moving...");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setObject(1,object.getDateTime());
-            ps.setInt(2,object.getMovableCount());
-            ps.setInt(3,object.getRemainAfter());
-            ps.setInt(4,object.getElement().getId());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
-                object.setId(rs.getInt(1));
+        System.out.println("Begin saving moving and updating element count...");
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement saveMovStatement = connection
+                    .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement updateElemCountStatement = connection
+                        .prepareStatement(UPDATE_ELEMENT_COUNT_SQL)) {
+                connection.setAutoCommit(false);
+                saveMovStatement.setObject(1,object.getDateTime());
+                saveMovStatement.setInt(2,object.getMovableCount());
+                saveMovStatement.setInt(3,object.getRemainAfter());
+                saveMovStatement.setInt(4,object.getElement().getId());
+                saveMovStatement.executeUpdate();
+                ResultSet rs = saveMovStatement.getGeneratedKeys();
+                if(rs.next()){
+                    object.setId(rs.getInt(1));
+                }
+                updateElemCountStatement.setInt(1,new Moving().getRemainAfter());
+                updateElemCountStatement.setInt(2,object.getElement().getId());
+                updateElemCountStatement.executeUpdate();
+                connection.commit();
+            } catch (Exception e) {
+                connection.rollback();
+                throw new RuntimeException(e.getMessage());
             }
-            return object;
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
         }
-
+        return object;
     }
+
 
     @Override
     public Optional<Moving> findById(Integer id) {

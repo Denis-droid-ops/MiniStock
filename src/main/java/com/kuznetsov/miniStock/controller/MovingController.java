@@ -114,7 +114,7 @@ public class MovingController implements Serializable {
 
     public String create(){
         newMoving.setRemainAfter(element.getCount()+newMoving.getMovableCount());
-        movingDao.save(new Moving());
+        movingDao.save(newMoving);
         return goMainPage();
     }
 

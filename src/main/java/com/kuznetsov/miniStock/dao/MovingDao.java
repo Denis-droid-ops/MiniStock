@@ -43,7 +43,7 @@ public class MovingDao implements Dao<Moving,Integer> {
                 if(rs.next()){
                     object.setId(rs.getInt(1));
                 }
-                updateElemCountStatement.setInt(1,new Moving().getRemainAfter());
+                updateElemCountStatement.setInt(1,object.getRemainAfter());
                 updateElemCountStatement.setInt(2,object.getElement().getId());
                 updateElemCountStatement.executeUpdate();
                 connection.commit();

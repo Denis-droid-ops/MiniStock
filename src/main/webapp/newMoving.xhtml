@@ -28,7 +28,9 @@
                 <div class="p-formgroup-inline">
                     <div class="p-field">
                         <p:outputLabel for="movableCount" styleClass="ui-sr-only" value="Movable count" />
-                        <p:inputText id="movableCount" placeholder="Enter movable count" value="#{movingController.newMoving.movableCount}"/>
+                        <p:inputText id="movableCount" placeholder="Enter movable count" value="#{movingController.newMoving.movableCount}">
+                        <f:validator validatorId="movingMovCountValidator" />
+                        </p:inputText>
                     </div>
                     <br/>
 

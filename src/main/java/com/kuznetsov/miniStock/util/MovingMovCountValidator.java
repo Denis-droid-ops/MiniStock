@@ -1,6 +1,6 @@
 package com.kuznetsov.miniStock.util;
 
-import com.kuznetsov.miniStock.dao.ElementDao;
+import com.kuznetsov.miniStock.controller.MovingController;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
@@ -13,20 +13,19 @@ import jakarta.inject.Named;
 
 @Named
 @RequestScoped
-@FacesValidator(value = "elementValidator",managed = true)
-public class ElementValidator implements Validator {
+@FacesValidator(value = "movingMovCountValidator",managed = true)
+public class MovingMovCountValidator implements Validator {
 
     @Inject
-    private ElementDao elementDao;
-
-    public ElementValidator() {
-    }
+    private MovingController movingController;
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String name = value.toString();
-        if(elementDao.findByName(name).isPresent()){
-            FacesMessage msg = new FacesMessage("Element with this name does exist");
+        Integer movableCount = (Integer)value;
+        if(movingController.getElement().getCount()+movableCount<0){
+            FacesMessage msg =
+                    new FacesMessage("Cannot add moving, " +
+                            "because movable count should be less or equal than element count");
             throw new ValidatorException(msg);
         }
     }
